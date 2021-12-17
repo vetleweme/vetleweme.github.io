@@ -1,13 +1,386 @@
+<!-- 
+Vurdering nr. 2 Kapittel 7
+Laget av Oskar H. og Vetle W. 2IT
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://demo.plantpot.works/assets/css/normalize.css">
+    <link rel="stylesheet" href="https://use.typekit.net/opg3wle.css">
+    <link rel="stylesheet" type="text/css" href="Style.css" />
+    <title>Kapittel 7</title>
+
+        <script>
+
+            window.onload = startup
+
+            function startup() {
+                // Første eksempel i boken, Side 141 under Enkle funksjoner.
+                Two()
+                document.getElementById("btnGiveAlert").onclick = One
+                document.getElementById("btnTextShow").onclick = Three
+                document.getElementById("btnNameSubmit").onclick = Six
+                
+                
+
+                var ctx = document.getElementById("drawspace").getContext("2d");
+                var colors1 = ['red', 'green', 'blue', 'yellow'];
+                var colors2 = ['black', 'gray']
+
+                Two(50, 50, 75, 20, colors1, ctx)
+                Two(150, 50, 75, 7.5, colors2, ctx)
+                Two(100, 125, 45, 7.5, colors1, ctx)
+
+                document.getElementById("showCode").hidden = true
+                document.getElementById("revealCode").hidden = true
+
+                document.getElementById("Addition").hidden = true
+                document.getElementById("Subtraction").hidden = true
+
+                document.getElementById("numberOne").hidden = true
+                document.getElementById("numberTwo").hidden = true
+                document.getElementById("btnCalculate").hidden = true
+
+                document.getElementById("btnCheck").onclick = FivePointOne;
+                document.getElementById("response").style.visibility = "hidden";
+
+                addition = false
+                subtraction = false
+            }
+
+             // Enkel funksjon. Laget av Vetle
+            function One() {
+                alert("You just ran a function")
+                
+            }
+             // Andre Eksempel i boken, Side 144 under Sirkelfunksjon. Laget av Oskar
+            function Two(x, y, radius, amount, colors, ctx) {
+                var radiusPull = radius / amount 
+                var counter = 0;
+                while (counter < amount) {
+                    ctx.strokeStyle = colors[counter % colors.length];
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    radius = radius - radiusPull;
+                    counter++;
+
+            }
+            }
+            // Dette er en orginal funksjon som skal vises som et eksempel nede på "Eksempel av funksjon". Laget av Oskar, med feilsøking fra Vetle
+            function Three() {
+                document.getElementById("revealCode").hidden = false
+                document.getElementById("showCode").hidden = false
+                var yourText = "Det du skrev i tekstboksen var: " + document.getElementById("boxInput").value
+                
+                document.getElementById("exampleFunction1").innerHTML = yourText
+            }
+            
+            function Four() {
+                // Throwaway function
+            }
+            
+            // Dette er eksempelet Palindrom, Denne funksjonen sjekker om en skrevet tekst er et palindrom. Laget av Oskar
+            function Five(text) {
+                text = text.toLowerCase();
+                if ( text.length < 2 ) {
+                    return true
+                }
+
+                else if (text.slice(0, 1) !== text.slice(-1)) {
+                    return false
+                }
+                
+                else {
+                    return Five(text.slice(1, -1));
+                }
+            }
+
+            //Etterfølger av "Five" som er palindrom eksempelet. Laget av Oskar
+            function FivePointOne() {
+                var text = document.getElementById("txtText").value
+                
+                if (Five(text) === true) {
+                    document.getElementById("response").src = "img/checkmark.png"
+                }
+                
+                else {
+                    document.getElementById("response").src = "img/x.png"
+                }
+
+                document.getElementById("response").style.visibility = "visible"
+            }
+
+
+            // Siste eksempelfunksjon. Enkel kalkulator laget av Vetle.
+            function Six() {
+                var Name = "Hei, " + document.getElementById("calcName").value + "," + " hva vil du gjøre?"
+
+                document.getElementById("calcGreeting").innerHTML = Name
+
+                document.getElementById("Addition").hidden = false
+                document.getElementById("Subtraction").hidden = false
+
+                document.getElementById("Addition").onclick = sixPointOne
+                document.getElementById("Subtraction").onclick = sixPointTwo
+            }
+
+            function sixPointOne() {
+                addition = true
+
+                document.getElementById("Addition").disabled = true
+                document.getElementById("Subtraction").disabled = true
+
+                document.getElementById("numberOne").hidden = false
+                document.getElementById("numberTwo").hidden = false
+                document.getElementById("btnCalculate").hidden = false
+
+                document.getElementById("btnCalculate").onclick = sixPointThree
+            }
+
+            function sixPointTwo() {
+                subtraction = true
+
+                document.getElementById("Addition").disabled = true
+                document.getElementById("Subtraction").disabled = true
+
+                document.getElementById("numberOne").hidden = false
+                document.getElementById("numberTwo").hidden = false
+                document.getElementById("btnCalculate").hidden = false
+
+                document.getElementById("btnCalculate").onclick = sixPointThree
+            }
+
+            function sixPointThree() {
+
+                if (addition === true) {
+
+                    var Number1 = document.getElementById("numberOne").value
+                    var Number2 = document.getElementById("numberTwo").value
+
+                    document.getElementById("calcAnswer").innerHTML = Number1 + " + " + Number2 + " = " + (parseInt(Number1) + parseInt(Number2))
+                }
+
+                else if (subtraction === true) {
+
+                    var Number1 = document.getElementById("numberOne").value
+                    var Number2 = document.getElementById("numberTwo").value
+
+                    document.getElementById("calcAnswer").innerHTML = Number1 + " - " + Number2 + " = " + (parseInt(Number1) - parseInt(Number2))
+                }
+
+                else {
+                    alert("error")
+                }
+            }
+
+            
+        </script>
+
+    <style>
+        body { background-image:url('https://img1.picmix.com/output/stamp/normal/3/2/3/4/1384323_62e37.gif'); background-repeat:repeat; }
+    </style>
+
 </head>
-<body>
-    <h1>toppus kekikus</h1>
-    <p>test</p>
-</body>
-</html>
+
+    <body>
+
+        <audio autoplay loop src="assets/ChristmasHonor.mp3">Christmas Muisc</audio>
+
+        <div class="Box">
+            <h1>Kapittel 7 | Funksjoner</h1>
+            <h3>Her er en interaktiv nettside, hvor du vil (forhåpentligvis) lære litt om funksjoner!</h3>
+        </div>
+        
+        <br>
+
+        <div class="Box">
+            <h2>Hva er en funksjon?</h2>
+            <p>
+                En funksjon er akkurat det det høres ut som. Nemlig en funksjon. I aller fleste kodespråk er funksjoner noe man kaller opp for å utføre en oppgave, eller en funksjon. Funksjoner er veldig viktitge for å skrive et script eller program. Det er nesten umulig å skrive et bra program uten dem.
+            </p>
+        </div> 
+        
+        <br>
+
+        <div class="Box">
+        <h2>Simple funksjoner:</h2>
+        <p>
+            Denne knappen starter en funksjon. Funksjonen er satt til å sende en alert. <br>
+            <br>
+            <button id="btnGiveAlert" class="festiveButtons">Run a function</button> <br>
+            <br>
+            Under oppstart "lytter" koden på knappen. Når vi trykker knappen, opkaller den funksjonen som vi har laget. Funksjonen kjører deretter en "Alert". <br>
+            <br>
+            Her ser du et "canvas" med mange fargede sirkler. Prosessen for å tegne den er satt inne i en funksjon som blir oppkalt når vi starter siden. <br>
+        </p>
+
+        <canvas id="drawspace" width="200" height="200" ></canvas> <br>
+
+        </div>
+
+        <br>
+        
+        <div class="Box">
+        <h2>Globale og lokale variabler:</h2>
+        <p>
+            Selv om globale og lokale variabler ikke er funksjoner i seg selv, er de fortsatt veldig viktige når det kommer til funksjoner.
+
+            <br>
+
+            En global variabel er en variabel som er utenfor funksjoner. Det vi si at alle funksjoner kan bruke og endre på den variabelen.
+
+            <br>
+
+            En lokal variabel er en variabel som er innenfor en funksjon. Det vil si at den variabelen bare eksisterer i den funksjonen, og at andre funksjoner ikke kan bruke den. Det er viktig å vite forskjellen mellom globale og lokale variabler når man skriver kode med funksjoner.
+        </p>
+        </div>
+
+        <br>
+
+        <div>
+        <h2>Eksempel av funksjon</h2>
+
+            <input type="text" id="boxInput" placeholder="noe morsomt" />
+            <button id="btnTextShow">Insert text</button>
+            <p id="exampleFunction1">Skriv noe morsomt i tekstboksen over!</p>
+            
+            <br>
+
+            <p id="revealCode">
+                Under ser du hvordan koden ser ut:
+            </p>
+
+        <pre id="showCode">
+            
+                function startup() {
+                document.getElementById("btnTextShow").onclick = Three
+            }  
+
+                
+                function Three() {
+                var yourText = document.getElementById("boxInput").value
+                document.getElementById("exampleFunction1").innerHTML = yourText
+            }
+
+        </pre>
+        
+        </div>
+
+        <br>
+
+        <div class="Box">
+            <h2>To forskjellige typer funksjoner</h2>
+            <p>
+                I hovedsak finnes det to forskjellige type funksjoner: <br>
+                Funksjoner som utfører en handling, og funksjoner som gir tilbake en verdi. Det vi har sett på over er funksjoner som utfører handlinger. <br>
+                For eksempel at vi tar en input og setter den inn i en tekst. <br>
+                Nå skal vi se på en funksjon som gir tilbake en verdi.
+            </p>
+
+            <br>
+
+            <pre class="alignLeft">
+                function minFunksjon(navn) {
+                    return "Hallo" + navn;
+                }
+                document.getElementById("eks").innerHTML = minFunksjon("Vetle");
+            </pre>
+        </div>
+        
+        <br>
+
+        <div class="Box">
+            <h2>Rekursive funksjoner</h2>
+            <p>Det er mulig å la en funksjon kalle opp seg selv. Dette kalles en <i>rekursiv funksjon</i>. Vi kan for eksempel skrive: </p>
+            <pre class="alignLeft">
+                function oppstart() {
+                    rekursivFunk(10); //Tallene 10 til 0 skrives ut
+                }
+
+                function rekursivFunk(number){
+                    document.getElementById("utskrift").innerHTML += tall + "br ";
+                    tall--;
+
+                    if(tall > 0) {
+                        rekursivFunk(tall);
+                    }
+                }
+            </pre>
+      
+        </div>
+        
+        <br>
+
+        <div class="Box">
+            <h2>Funksjon som verdi</h2>
+            <p>
+                Funksjoner i JavaScript kan også fungere som verdier, likt som tall og tekststrenger. <br>
+                I eksempelet under kan du se at vi lagrer funksjonen som en verdi vi kan referere til.
+            </p>
+            
+            <br>
+
+            <pre class="alignLeft">
+                function oppstart() {
+                    var mattefunksjon = summer;
+                    
+                    var verdi = mattefunksjon(3, 6) // 9
+                }
+
+                function summer(tall1, tall2) {
+                    return tall1 + tall2;
+                }
+            </pre>
+            
+            <br>
+            
+            <p>
+                Om du ser på koden over kan du se at den tar funksjonen (summer) og setter den inn i en variabel som vi kaller for mattefunksjon. <br>
+                Når vi da kaller opp den variabelen med riktige parametere refererer den til funksjonen.
+            </p>
+        </div>
+
+        <br>
+        
+        <div class="Box">
+        <h2>Palindrom</h2>
+
+        <p>I dette eksemplet, så skal vi finne ut om teksten som du har skrevet er et Palindrom. Et palindrom er en tekst som blir identisk om vi snur den bakvendt</p> <br>
+        
+        <p>
+            Tekst: <input type="text" id="txtText">
+            <button id="btnCheck">Check</button><br>
+            <img src="" id="response" width="100px">
+        </p>
+        
+        </div>
+
+        <br>
+
+        <div>
+            <h1>Eksempel funksjon - Kalkulator</h1>
+
+            <p>
+                <input type="text" placeholder="Skriv navnet ditt her" id="calcName">
+                <button id="btnNameSubmit">Submit</button>
+                <p id="calcGreeting"></p>
+
+                <button id="Addition">Addisjon</button>
+                <button id="Subtraction">Subtraksjon</button><br>
+
+                <br>
+
+                <input type="number" placeholder="Tall 1" id="numberOne">
+                <input type="number" placeholder="Tall 2" id="numberTwo">
+                <button id="btnCalculate">Calculate</button>
+
+                <p id=calcAnswer></p>
+            </p>
+        </div>
+    
+    </body>
