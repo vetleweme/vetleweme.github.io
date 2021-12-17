@@ -1,0 +1,49 @@
+#drawspace {
+    border-style: solid;
+    border-color: rgb(30, 255, 125);
+    border-width: 5px;
+    background-color: white;
+}
+
+#resonse {
+    width: 50px;
+}
+
+.darkButtons {
+    background-color: #2C2F33;
+    color: white;
+}
+
+.festiveButtons {
+    border-width: 5px;
+    border-color: rgb(30, 255, 125);
+    background-color: white;
+    color: red
+}
+
+body {
+    border-image: repeating-linear-gradient(135deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
+    width: 95%;
+    margin: auto;
+    background-color: white ;
+    color: rgb(255, 0, 0);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.Box {
+    background-size: 5px, 5px;
+    border-style: solid;
+    border-color: rgb(30, 255, 125);
+    box-shadow: black;
+    border-width: 10px;
+    text-align: center;
+}
+
+.gradient-stripes {
+    border-image: repeating-linear-gradient(135deg, #ccc, #ccc 10px, #eee 10px, #eee 20px);
+  }
+  
